@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
-using Unity.Transforms;
-using Unity.Mathematics;
 using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace DOTSCompare.ECS
 {
@@ -11,28 +11,23 @@ namespace DOTSCompare.ECS
     // performance of C++.  To the end-user, it's nearly invisible.  
 
 
-    public class MovementSystemJobsBurst : JobComponentSystem
+    public partial class MovementSystemJobsBurst : SystemBase
     {
-        protected override JobHandle OnUpdate(JobHandle inputDeps)
+        protected override void OnUpdate()
         {
             float deltaTime = Time.DeltaTime;
             float upperBounds = GameManager.Instance.UpperBounds;
             float lowerBounds = GameManager.Instance.BottomBounds;
 
-            JobHandle jobHandle = Entities.
-                ForEach((ref Translation trans, ref MoveForward moveForward) =>
+            Entities.
+                ForEach((ref Translation trans, in MoveForward moveForward) =>
                 {
-
                     trans.Value += new float3(0f, 0f, moveForward.speed * deltaTime);
-
                     if (trans.Value.z >= upperBounds)
                     {
                         trans.Value.z = lowerBounds;
                     }
-
-                }).Schedule(inputDeps);
-
-            return jobHandle;
+                }).Schedule();
         }
     }
 }

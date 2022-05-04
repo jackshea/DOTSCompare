@@ -1,0 +1,14 @@
+{
+    "Dependencies": [],
+    "Components": [{
+        "$type": "Unity.Build.Common.GeneralSettings, Unity.Build.Common",
+        "ProductName": "DOTSCompare",
+        "CompanyName": "com.xiezaikui"
+    }, {
+        "$type": "Unity.Build.Classic.ClassicBuildProfile, Unity.Build.Classic",
+        "Target": 5,
+        "Configuration": 3,
+        "Pipeline": "GlobalObjectId_V1-1-e1c9258a8c8b84547957507ad910a830-93214019566545601-0",
+        "ExcludedAssemblies": []
+    }]
+}

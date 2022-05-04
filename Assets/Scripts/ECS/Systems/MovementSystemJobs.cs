@@ -12,29 +12,24 @@ namespace DOTSCompare.ECS
     // The Job System places them into a queue and does the heavy lifting of
     // multi-threaded code for you.
 
-    public class MovementSystemJobs : JobComponentSystem
+    public partial class MovementSystemJobs : SystemBase
     {
-        protected override JobHandle OnUpdate(JobHandle inputDeps)
+        protected override void OnUpdate()
         {
             float deltaTime = Time.DeltaTime;
             float upperBounds = GameManager.Instance.UpperBounds;
             float lowerBounds = GameManager.Instance.BottomBounds;
 
-            JobHandle jobHandle = Entities.
+           Entities.
                 WithoutBurst().
-                ForEach((ref Translation trans, ref MoveForward moveForward) =>
+                ForEach((ref Translation trans, in MoveForward moveForward) =>
                 {
-
                     trans.Value += new float3(0f, 0f, moveForward.speed * deltaTime);
-
                     if (trans.Value.z >= upperBounds)
                     {
                         trans.Value.z = lowerBounds;
                     }
-
-                }).Schedule(inputDeps);
-
-            return jobHandle;
+                }).Schedule();
         }
     }
 }
