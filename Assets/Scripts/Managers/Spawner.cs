@@ -128,12 +128,12 @@ namespace DOTSCompare
                 entityManager.AddComponentData(myEntity, new Translation { Value = GetRandomPosition() });
                 entityManager.AddComponentData(myEntity, new Scale { Value = GetRandomScale(unitScale) });
 
-                entityManager.AddSharedComponentData(myEntity, new RenderMesh
-                {
-                    mesh = unitMesh,
-                    material = unitMaterial
-                });
-
+                //entityManager.AddSharedComponentData(myEntity, new RenderMesh
+                //{
+                //    mesh = unitMesh,
+                //    material = unitMaterial
+                //});
+                RenderMeshUtility.AddComponents(myEntity, entityManager, new RenderMeshDescription(unitMesh, unitMaterial));
                 entityManager.AddComponentData(myEntity, new MoveForward { speed = GameManager.Instance.moveSpeed });
             }
 
